@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: budget-app-web-deployment
+  labels:
+    app: budget-app-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: budget-app-web
+  template:
+    metadata:
+      labels:
+        app: budget-app-web
+    spec:
+      containers:
+        - name: budget-ap-web
+          image: firsttalk26/budget-app_web
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: budget-app-web-service
+spec:
+  selector:
+    app: budget-app-web
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: LoadBalancer
+

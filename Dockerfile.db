@@ -1,0 +1,12 @@
+# Use an official PostgreSQL image as a parent image
+#FROM postgres:16-alpine
+FROM budget-app_db
+# Set the environment variables
+
+ENV POSTGRES_DB=Budgy_development \
+    POSTGRES_USER=Budgy \
+    POSTGRES_PASSWORD=qwerty
+
+# Expose the PostgreSQL port
+EXPOSE 5432
+

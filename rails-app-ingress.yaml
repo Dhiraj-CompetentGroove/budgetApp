@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: budget-app-ingress
+spec:
+  rules:
+  - host:   # Replace with your actual domain
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: budget-app-web-service
+            port:
+              number: 80
+

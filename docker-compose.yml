@@ -1,0 +1,18 @@
+version: '3.3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+        #command: "bin/rails db:migrate RAILS_ENV=development"
+        #entrypoint: sh -c "bin/rails db:migrate RAILS_ENV=development  && exec"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    ports:
+      - "5432:5432"

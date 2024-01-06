@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: budget-app-db
+spec:
+  serviceName: "budget-app-db"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: budget-app-db
+  template:
+    metadata:
+      labels:
+        app: budget-app-db
+    spec:
+      containers:
+      - name: budget-app-db
+        image: firsttalk26/budget-app_db
+        ports:
+        - containerPort: 5432
+  volumeClaimTemplates:
+  - metadata:
+      name: budget-app-db
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: budget-app-db
+spec:
+  selector:
+    app: budget-app-db
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+
